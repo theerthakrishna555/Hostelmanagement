@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+{% extends 'dashboard/warden_side/warden.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="col-lg-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Room Details</h4>
+                  <div class="table-responsive">
+                    <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th>Room number</th>
+                          <th>Capacity</th>
+                          <th>Available beds</th>
+                          <th>Price</th>
+                             <th>Image1</th>
+                             <th>Image2</th>
+                            <th>Options</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      {% for r in room_list %}
+                        <tr>
+                          <td>{{r.room_number}}</td>
+                          <td>{{r.capacity}}</td>
+                            <td>{{r.available_beds}}</td>
+                          <td>{{r.price_per_month}}</td>
+                            <td>
+                                <img src="{{r.image1.url}}" style="border-radius:0; width=300px;  height=100px; ">
+                            </td>
+                             <td>
+                                <img src="{{r.image2.url}}" style="border-radius:0; width=200px;  height=200px; ">
+                            </td>
+                            <td>
+                                <a href="{% url 'Edit_room' room_id=r.id %}" class="btn btn-outline-primary">Edit</a>
+                                <a href="{% url 'delete_room' room_id=r.id %}" class="btn btn-outline-primary">Delete</a>
+                            </td>
+
+                        </tr>
+                      {% endfor %}
+
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+</body>
+</html>
+{% endblock %}

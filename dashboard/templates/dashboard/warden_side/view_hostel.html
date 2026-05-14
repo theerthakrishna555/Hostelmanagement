@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+{% extends 'dashboard/warden_side/warden.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="col-lg-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Hostel Details </h4>
+
+                  <div class="table-responsive">
+                    <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th>Hostel Name </th>
+                          <th>Warden</th>
+                          <th>Location</th>
+                          <th>Description</th>
+                            <th>Image</th>
+                            <th>Status</th>
+                            <th>Options</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      {% for h in warden_hostel %}
+                        <tr>
+                            <td>{{h.name}}</td>
+                            <td>{{h.warden}}</td>
+                            <td>{{h.location}}</td>
+                            <td>{{h.description}}</td>
+                            <td>
+                                <img src="{{h.image.url}}" style="border-radius:0; width=100px;  height=100px; ">
+                            </td>
+                            <td>
+                                {% if h.is_Approved %}
+                                   <span class="badge badge-success">Approved</span>
+                                {% else %}
+                                   <span class="badge badge-warning">Pending</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <a href="{% url 'Edit_hostel' hostel_id=h.id %}" class="btn btn-outline-primary">Edit</a>
+                                <a href="{% url 'delete_hostel' hostel_id=h.id %}" class="btn btn-outline-primary">Delete</a>
+                            </td>
+
+                        </tr>
+                      {% endfor %}
+
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+</body>
+</html>
+{% endblock %}

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+{% extends 'dashboard/admin_side/admin.html' %}
+{%  load static %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="card">
+                  <div class="card-header">
+                    <div class="card-title">Hoverable Table</div>
+                  </div>
+                  <div class="card-body">
+                    <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th scope="col">Hostel Name</th>
+                          <th scope="col">Hostel location</th>
+                          <th scope="col">Description</th>
+                          <th scope="col">warden</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Image</th>
+
+                        </tr>
+                      </thead>
+                      <tbody>
+                      {% for h in admin_hostel %}
+                        <tr>
+                          <td>{{h.name}}</td>
+                          <td>{{h.location}}</td>
+                          <td>{{h.description}}</td>
+                          <td>{{h.warden}}</td>
+                            <td>
+                                {% if h.is_Approved %}
+                                     <span class="badge badge-success">Approved</span>
+                                {% else %}
+                                     <span class="badge badge-warning">Pending</span>
+                                     <br><br>
+                                     <a href="{% url 'approve' h.id %}"
+                                        class="btn btn-success btn-sm">
+                                         Approve
+
+                                     </a>
+                                {% endif %}
+                            <td>
+                                {% if h.image %}
+                                    <img src="{{h.image.url}}" style="border-radius:0; width:100px; height:100px;">
+                                {% else %}
+                                    <img src="{%static 'assets/img/undraw/blank_picture.png' %}" style="border-radius:0; width:100px; height:100px;">
+                                {% endif %}
+                            </td>
+                        </tr>
+                      {% endfor %}
+
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+</body>
+</html>
+{% endblock %}
